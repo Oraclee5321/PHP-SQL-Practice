@@ -2,8 +2,36 @@
 
 $category = $_POST['filterCategory'];
 $value = $_POST['filterValueInput'];
+$sqlTerms = ["customerFName","customerSName","customerDOB","customerCity","customerPostCode","customerAddress","customerPhone"];
 $baseSQL = "SELECT * FROM tbl_customers JOIN tbl_login ON tbl_customers.customerLoginID=tbl_login.loginID";
-echo $category;
-echo $value;
+$newFilter = "";
+
+switch ($category) {
+    case "First Name":
+        $newFilter = $sqlTerms[0];
+        break;
+    case "Surname":
+        $newFilter = $sqlTerms[1];
+        break;
+    case "Date of Birth":
+        $newFilter = $sqlTerms[2];
+        break;
+    case "City":
+        $newFilter = $sqlTerms[3];
+        break;
+    case "Post Code":
+        $newFilter = $sqlTerms[4];
+        break;
+    case "Address":
+        $newFilter = $sqlTerms[5];
+        break;
+    case "Phone Number":
+        $newFilter = $sqlTerms[6];
+        break;
+}
+
+echo $newFilter;
+
+
 
 ?>
