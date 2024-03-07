@@ -1,0 +1,10 @@
+CREATE TABLE `assignment`.`tbl_customers` (`customerID` INT NOT NULL AUTO_INCREMENT ,
+                                           `customerFName` VARCHAR(255) NOT NULL ,
+                                           `customerSName` VARCHAR(255) NOT NULL ,
+                                           `customerDOB` DATE NOT NULL ,
+                                           `customerCity` VARCHAR(255) NOT NULL ,
+                                           `customerPostCode` VARCHAR(7) NOT NULL ,
+                                           `customerAddress` VARCHAR(512) NOT NULL ,
+                                           `customerPhone` INT NOT NULL ,
+                                           `customerLoginID` INT NOT NULL ,
+                                           PRIMARY KEY (`customerID`)) ENGINE = InnoDB; 
