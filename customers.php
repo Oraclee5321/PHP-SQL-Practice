@@ -48,10 +48,10 @@ $conn = connect();
                         <td>
                             <button name="filterAddButton" id=addButton" type="submit" class="btn btn-primary form-control">Add</button>
                         </td>
-                        <!-- <div class="col-md-2" style="max-height: 20vh; padding-bottom: 2vh">
+                        <div class="col-md-2" style="max-height: 20vh; padding-bottom: 2vh">
                              <label for="filterSearchButton" class="form-label">Search </label>
-                             <button name="filterSearchButton" id=searchButton" type="submit" class="btn btn-primary form-control">Search</button>
-                         </div>-->
+                             <button name="filterSearchButton" id=searchButton" type="button" class="btn btn-primary form-control" onclick="applyFilter()">Search</button>
+                         </div>
                     </form>
                     </tr>
                 </thead>
@@ -70,7 +70,7 @@ $conn = connect();
 
                 <tbody>
                     <?php
-                    $sql = getCustomer(Null);
+                    $sql = getCustomer(0);
                     $sqlquery = $conn->query($sql);
                     while ($row = $sqlquery->fetch_assoc()) {
                         $id = $row['customerID'];
@@ -102,6 +102,11 @@ $conn = connect();
     </div>
 </div>
 
+<script>
+    function applyFilter(){
+
+    }
+</script>
 </body>
 
 </html>

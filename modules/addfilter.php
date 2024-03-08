@@ -3,7 +3,7 @@ session_start();
 
 $category = $_POST['filterCategory'];
 $filterValue = $_POST['filterValueInput'];
-$sqlTerms = ["customerFName","customerSName","customerDOB","customerCity","customerPostCode","customerAddress","customerPhone"];
+$sqlTerms = ["customerFName","customerSName","customerDOB","customerCity","customerPostCode","customerAddress","customerPhone","customerEmail"];
 $baseSQL = "SELECT * FROM tbl_customers JOIN tbl_login ON tbl_customers.customerLoginID=tbl_login.loginID";
 $newFilter = "";
 
@@ -29,9 +29,11 @@ switch ($category) {
     case "Phone Number":
         $newFilter = $sqlTerms[6];
         break;
+    case "Email":
+        $newFilter = $sqlTerms[7];
 }
 
-$_SESSION["filters"][] = "tbl_customers.".$newFilter . "=" . $filterValue;
+$_SESSION["filters"][] = "tbl_customers.".$newFilter . "=" . "'$filterValue'";
 header("Location: ../customers.php.");
 exit;
 
