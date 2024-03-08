@@ -1,6 +1,13 @@
 <?php
+
+session_start();
+if (! isset($_SESSION["filters"])){
+    $_SESSION["filters"] = [];
+}
 include "modules/dbconnect.php";
+include "modules/customerQuery.php";
 $conn = connect();
+
 ?>
 <html lang="en">
 <head>
@@ -63,7 +70,7 @@ $conn = connect();
 
                 <tbody>
                     <?php
-                    $sql = "SELECT * FROM tbl_customers JOIN tbl_login ON tbl_customers.customerLoginID=tbl_login.loginID";
+                    $sql = getCustomer(Null);
                     $sqlquery = $conn->query($sql);
                     while ($row = $sqlquery->fetch_assoc()) {
                         $id = $row['customerID'];
