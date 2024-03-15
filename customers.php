@@ -4,8 +4,24 @@ session_start();
 if (! isset($_SESSION["filters"])){
     $_SESSION["filters"] = [];
 }
+
+if (! isset($_SESSION["requestType"])){
+    $_SESSION["requestType"] = 0;
+}
+
+if (! isset($_SESSION["pressedSearch"])){
+    $_SESSION["pressedSearch"] = 0;
+}
+
+foreach ($_SESSION['filters'] as $x){
+    echo $x;
+}
+
+
+
 include "modules/dbconnect.php";
 include "modules/customerQuery.php";
+include "modules/changeRequest.php";
 $conn = connect();
 
 ?>
@@ -52,9 +68,10 @@ $conn = connect();
                              <label for="filterSearchButton" class="form-label">Search </label>
                              <button name="filterSearchButton" id=searchButton" type="button" class="btn btn-primary form-control" onclick="applyFilter()">Search</button>
                          </div>
+                    </tr>
+                    </thead>
                     </form>
                     </tr>
-                </thead>
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -68,10 +85,21 @@ $conn = connect();
                 </tr>
                 </thead>
 
-                <tbody>
+                <tbody id="dbinfo">
                     <?php
-                    $sql = getCustomer(0);
-                    $sqlquery = $conn->query($sql);
+                    if ($_SESSION['requestType'] == 1 and $_SESSION['pressedSearch'] == 1){
+                        $sql = getCustomer(getRequestType(),1);
+                        $sqlquery = $conn->query($sql);
+                        $_SESSION['pressedSearch'] = 0;
+                    }
+                    elseif ($_SESSION['requestType'] == 1 and $_SESSION['pressedSearch'] == 0){
+                        $sql = getCustomer(getRequestType(),0);
+                        $sqlquery = $conn->query($sql);
+                    }
+                    elseif ($_SESSION['requestType'] == 0){
+                        $sql = getCustomer(getRequestType(),0);
+                        $sqlquery = $conn->query($sql);
+                    }
                     while ($row = $sqlquery->fetch_assoc()) {
                         $id = $row['customerID'];
                         $name = $row['customerFName'] ." ". $row['customerSName'];
@@ -103,8 +131,22 @@ $conn = connect();
 </div>
 
 <script>
-    function applyFilter(){
+    function applyFilter() {
+        console.log("AYYYY")
+        $.ajax({
 
+            url: 'ajax-response/requestResponse.php',
+            type: 'POST',
+            success: function () {
+                console.log("Heyyyy");
+                console.log(location.href);
+                $("#dbinfo").load(location.href+" #dbinfo>*","");
+            },
+            error: function () {
+                console.log('error');
+            }
+
+        });
     }
 </script>
 </body>

@@ -34,7 +34,7 @@ switch ($category) {
 }
 
 $_SESSION["filters"][] = "tbl_customers.".$newFilter . "=" . "'$filterValue'";
-header("Location: ../customers.php.");
+header("Location: ../customers.php");
 exit;
 
 ?>
