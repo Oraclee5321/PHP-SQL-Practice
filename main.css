@@ -5,12 +5,18 @@
 }
 
 .table-responsive{
-    max-height:80vh;
-    width:100%
+    max-height:95vh;
+    width:100%;
+    display:block;
 }
+
 
 #sidebarMenu {
     height: 100vh
+}
+
+.hidden {
+    display: none; /* Completely hides the element */
 }
 
 .testimonials {
