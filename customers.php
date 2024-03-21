@@ -5,6 +5,10 @@ if (! isset($_SESSION["filters"])){
     $_SESSION["filters"] = [];
 }
 
+if (! isset($_SESSION["previousFilters"])){
+    $_SESSION["previousFilters"] = [];
+}
+
 if (! isset($_SESSION["requestType"])){
     $_SESSION["requestType"] = 0;
 }
@@ -12,12 +16,6 @@ if (! isset($_SESSION["requestType"])){
 if (! isset($_SESSION["pressedSearch"])){
     $_SESSION["pressedSearch"] = 0;
 }
-
-foreach ($_SESSION['filters'] as $x){
-    echo $x;
-}
-
-
 
 include "modules/dbconnect.php";
 include "modules/customerQuery.php";
@@ -68,6 +66,10 @@ $conn = connect();
                              <label for="filterSearchButton" class="form-label">Search </label>
                              <button name="filterSearchButton" id=searchButton" type="button" class="btn btn-primary form-control" onclick="applyFilter()">Search</button>
                          </div>
+                        <div class="col-md-2" style="max-height: 20vh; padding-bottom: 2vh">
+                            <label for="filterSearchButton" class="form-label">Clear </label>
+                            <button name="filterSearchButton" id=searchButton" type="button" class="btn btn-primary form-control" onclick="removeFilters()">Clear Filters</button>
+                        </div>
                     </tr>
                     </thead>
                     </form>
@@ -87,6 +89,7 @@ $conn = connect();
 
                 <tbody id="dbinfo">
                     <?php
+                    $sqlquery = Null;
                     if ($_SESSION['requestType'] == 1 and $_SESSION['pressedSearch'] == 1){
                         $sql = getCustomer(getRequestType(),1);
                         $sqlquery = $conn->query($sql);
@@ -136,6 +139,23 @@ $conn = connect();
         $.ajax({
 
             url: 'ajax-response/requestResponse.php',
+            type: 'POST',
+            success: function () {
+                console.log("Heyyyy");
+                console.log(location.href);
+                $("#dbinfo").load(location.href+" #dbinfo>*","");
+            },
+            error: function () {
+                console.log('error');
+            }
+
+        });
+    }
+    function removeFilters() {
+        console.log("AYYYY")
+        $.ajax({
+
+            url: 'ajax-response/removeFiltersResponse.php',
             type: 'POST',
             success: function () {
                 console.log("Heyyyy");
