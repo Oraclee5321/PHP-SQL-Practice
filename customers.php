@@ -38,7 +38,7 @@ $conn = connect();
         </nav>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="table-responsive small" id="customerTable">
-            <table id="filtertable" class="table table-striped table-sm text-center" style="position: sticky; top:1;">
+            <table id="filtertable" class="table table-striped table-sm text-center">
                 <form action="modules/addfilter.php" method="post">
                     <thead>
                     <tr>
@@ -131,7 +131,7 @@ $conn = connect();
                         ';}
                     ?>
                 </tbody>
-                <tfoot id="dbfooter" class="hidden" style="position:sticky; bottom:0">
+                <tfoot id="dbfooter" class="hidden">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
@@ -188,13 +188,10 @@ $conn = connect();
     document.addEventListener('wheel', function() {
         const header = document.getElementById('dbheader');
         const footer = document.getElementById('dbfooter');
-        const elementRect = header.getBoundingClientRect();
         const scrollAmount = document.getElementById('customerTable').scrollTop;
-
-
+        console.log(scrollAmount)
         // Check if the element is completely out of view (both top and bottom)
-        if (elementRect.top <= 0) {
-            console.log("Ayyy")
+        if (scrollAmount > 0) {
             header.classList.add('hidden');
             footer.classList.remove('hidden')
         }

@@ -15,6 +15,15 @@
     height: 100vh
 }
 
+#dbfooter{
+    position:sticky;
+    bottom:0;
+}
+
+#filtertable{
+    position:sticky;
+    top:0
+}
 .hidden {
     display: none; /* Completely hides the element */
 }
